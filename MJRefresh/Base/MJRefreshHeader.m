@@ -130,7 +130,12 @@
                 // 增加滚动区域top
                 self.scrollView.mj_insetT = top;
                 // 设置滚动位置
-                [self.scrollView setContentOffset:CGPointMake(0, -top) animated:NO];
+                if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+                    self.scrollView.mj_offsetY = - top;
+                }else {
+                    [self.scrollView setContentOffset:CGPointMake(0, -top) animated:NO];
+                }
+
             } completion:^(BOOL finished) {
                 [self executeRefreshingCallback];
             }];
